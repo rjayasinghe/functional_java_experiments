@@ -1,6 +1,6 @@
 package scoreboard.lazy_and_pure;
 
-import java.io.Console;
+import java.util.function.Consumer;
 
 
 public class ListOfCommands {
@@ -11,12 +11,6 @@ public class ListOfCommands {
     }
 
 
-    public boolean hasNext(Console console) {
-
-        return false;
-    }
-
-
-    public void executeIO(Console console) {
+    public void reduceOrForEachOrSth(Consumer<Command> consumer) {
     }
 }
