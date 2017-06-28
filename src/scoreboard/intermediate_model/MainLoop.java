@@ -13,6 +13,7 @@ public class MainLoop {
         while (scoreBoard.inGame) {
             String readLine = readLine();
 
+            // pure part which changes state to new data
             Update update = computeNextScoreBoard(readLine, scoreBoard);
             scoreBoard = update.scoreBoard;
 
