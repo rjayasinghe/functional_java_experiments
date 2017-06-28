@@ -11,21 +11,28 @@ public class MainLoop {
         ScoreBoard scoreBoard = new ScoreBoard();
 
         while (scoreBoard.inGame) {
-            String readLine = readline();
+            String readLine = readLine();
 
             Update update = computeNextScoreBoard(readLine, scoreBoard);
             scoreBoard = update.scoreBoard;
 
             String toBePrintedLine = update.line;
 
-            System.out.println(toBePrintedLine);
+            writeLine(toBePrintedLine);
         }
     }
 
 
     // impure
-    private static String readline() {
+    private static String readLine() {
 
-        return null;
+        return System.console().readLine();
+    }
+
+
+    // impure
+    private static void writeLine(String toBePrintedLine) {
+
+        System.out.println(toBePrintedLine);
     }
 }
