@@ -8,37 +8,44 @@ import java.util.function.Supplier;
 public class Functions {
 
     // TODO how to test without a mocked linereader?
-    static Supplier<Command2> translateInputStringToCommand(LineReader lines) {
+    static Function<ScoreBoard, Object[]> translateInputStringToCommand(LineReader lines) {
 
-        return () -> {
+        return (ScoreBoard sb) -> {
             String line = lines.get();
 
             // TODO switch
-            return Command2.SELECT_A;
+            return new Object[] { Command2.SELECT_A, sb };
         };
     }
 
 
-    static Function<ScoreBoard, ScoreBoard> updateModelByCommand(Supplier<Command2> commands) {
+    static Function<ScoreBoard, ScoreBoard> updateModelByCommand(Function<ScoreBoard, Object[]> commands) {
 
         return
-            (sb) -> {
-            Command2 c = commands.get();
+            (old) -> {
+            Object[] f = commands.apply(old);
+            Command2 c = (Command2) f[0];
+            ScoreBoard sb = (ScoreBoard) f[1];
 
             switch (c) {
                 case SELECT_A:
                     return sb.selectTeam(0);
             }
 
-            return null; // TODO ScoreBoad.abort();
+            return null; // TODO ScoreBoard.abort();
         };
     }
 
 
-    static Consumer<ScoreBoard> printScoreBoard(LineWriter lineWriter,
-        Function<ScoreBoard, ScoreBoard> scoreBoardScoreBoardFunction) {
+    static Function<ScoreBoard, ScoreBoard> printScoreBoard(LineWriter lineWriter,
+        Function<ScoreBoard, ScoreBoard> scoreBoard) {
 
-        return (oldSb) -> lineWriter.accept(oldSb.line);
+        return (old) -> {
+            final ScoreBoard sb = scoreBoard.apply(old);
+            lineWriter.accept(sb.line);
+
+            return sb;
+        };
     }
 
     interface LineReader extends Supplier<String> {
