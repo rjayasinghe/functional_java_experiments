@@ -14,3 +14,23 @@ The MVP consists of a simple command line UI using the following commands:
 - Unknown commands are ignored
 
 Forked from https://github.com/jlink/functional-tdd
+
+### State
+
+* selected team (a,b)
+* score of team a (int)
+* score of team b (int)
+* cancellation
+
+### I/O
+
+* read line from console
+  * read character (+,-,a,b,r,x)
+  * read return (enter)
+* write line to console
+  * "Scoreboard started"
+  * "Scoreboard ended"
+  * "Team A selected"
+  * "Team B selected"
+  * "001:003" (%03d:%03d)
+
